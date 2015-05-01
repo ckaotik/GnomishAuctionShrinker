@@ -297,10 +297,12 @@ function Update(self, event)
 	local itemsMax = itemsMin + numBatchAuctions - 1
 
 	if totalAuctions == 0 then
+		BrowseNoResultsText:Show()
 		BrowseSearchCountText:Hide()
 		prevbutt:RealHide()
 		nextbutt:RealHide()
 	else
+		BrowseNoResultsText:Hide()
 		BrowseSearchCountText:SetFormattedText(NUMBER_OF_RESULTS_TEMPLATE, itemsMin, itemsMax, totalAuctions)
 		BrowseSearchCountText:Show()
 		prevbutt:RealShow()
@@ -325,6 +327,9 @@ end
 panel:RegisterEvent("AUCTION_ITEM_LIST_UPDATE")
 panel:SetScript("OnEvent", Update)
 panel:SetScript("OnShow", Update)
+
+BrowseWowTokenResults:HookScript('OnShow', function() panel:Hide() end)
+BrowseWowTokenResults:HookScript('OnHide', function() panel:Show() end)
 
 
 -------------------------
